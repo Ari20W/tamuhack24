@@ -1,0 +1,126 @@
+import datetime
+current_time = datetime.datetime.now()
+print(current_time)
+current_time.weekday()
+print(current_time.weekday())
+if current_time.weekday() == 0:
+    print("Monday")
+    split_time = current_time.split()
+    print(split_time)
+
+    #if current_time in range(9,17)
+if current_time.weekday() == 1:
+    print("Tuesday")
+if current_time.weekday() == 2:
+    print("Wednesday")
+if current_time.weekday() == 3:
+    print("Thursday")
+if current_time.weekday() == 4:
+    print("Friday")
+if current_time.weekday() == 5:
+    print("Saturday")
+    string_time = str(current_time)
+    split_time = string_time.split()
+    if str(range(9,17)) in split_time[1]:
+        print("hi")
+    print(split_time)
+if current_time.weekday() == 6:
+    print("Sunday")
+
+import pandas as pd
+rowNames = ["1876 Burgers - UG",
+            "Aggie Express - Hullabaloo",
+            "Chick-Fil-A - UG",
+            "Copperhead Jack's - UG",
+            "Einstein Bros. Bagels - UG",
+            "Houston Street Subs - UG",
+            "On The Go - Blocker",
+            "Pizza - UG",
+            "Starbucks - Hullabaloo",
+            "Smoothie King - UG"]
+columnNames = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
+northCampus = pd.DataFrame([[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],rowNames,columnNames)
+
+def mondayThursday(restaurant,inputTime,df,friTime):
+    i = 1
+    while i<5:
+        df.loc[restaurant,columnNames[i]] = inputTime
+        i+=1
+    df.loc[restaurant,columnNames[i]] = friTime
+
+def mondayFriday(restaurant,inputTime,df):
+    i=1
+    while i<6:
+        df.loc[restaurant,columnNames[i]] = inputTime
+        i+=1
+
+def weekends(restaurant,inputTime,df,satOrSun):
+    df.loc[restaurant,columnNames[satOrSun]] = inputTime
+
+def notOpen(df):
+    i=0
+    while(i<len(rowNames)):
+        #for j in df[i]:
+        j=0
+        while(j<len(columnNames)):
+            #if(isinstance(j,int) == True):
+            if(df.iloc[i,j]==0):
+                df.iloc[i,j] = "NOT OPEN"
+            j+=1
+        i+=1
+            # print(df.iloc[rowNames[i],columnNames[j])
+            # print(type(df.iloc[i,j]))
+            # if(isinstance(type(df.iloc[i,j]),str) == False):
+            #     if (df.iloc[i,j]==0):
+            #         df.loc[i,j] = "NOT OPEN"
+
+mondayThursday("1876 Burgers - UG","10:30a-8:00p",northCampus,"10:30a-7:00p")
+
+mondayFriday("Aggie Express - Hullabaloo","8:00a-12:00a",northCampus)
+weekends(rowNames[1],"9:00a-12:00a",northCampus,columnNames.index("Sunday"))
+weekends(rowNames[1],"8:00a-12:00a",northCampus,columnNames.index("Saturday"))
+
+mondayThursday("Chick-Fil-A - UG","10:30a-10:00p",northCampus,"10:30a-8:00p")
+weekends(rowNames[2],"12:00p-8:00p",northCampus,columnNames.index("Saturday"))
+
+mondayThursday("Copperhead Jack's - UG","10:30a-8:00p",northCampus,"10:30a-7:00p")
+
+mondayFriday("Einstein Bros. Bagels - UG","7:00a-2:00p",northCampus)
+
+mondayFriday("Houston Street Subs - UG","11:00a-3:00p",northCampus)
+
+mondayThursday("On The Go - Blocker","8:00a-4:00p",northCampus,"8:00a-3:00p")
+
+mondayFriday("Pizza - UG","11:00a-8:00p",northCampus)
+weekends(rowNames[7],"2:00p-8:00p",northCampus,columnNames.index("Sunday"))
+
+mondayThursday("Starbucks - Hullabaloo","7:00a-10:00p",northCampus,"7:00a-7:00p")
+weekends(rowNames[8],"9:00a-9:00p",northCampus,columnNames.index("Sunday"))
+weekends(rowNames[8],"8:00a-4:00p",northCampus,columnNames.index("Saturday"))
+
+mondayThursday("Smoothie King - UG","10:00a-10:00p",northCampus,"10:00a-8:00p")
+weekends(rowNames[9],"2:00p-8:00p",northCampus,columnNames.index("Sunday"))
+weekends(rowNames[9],"12:00p-6:00p",northCampus,columnNames.index("Saturday"))
+
+
+
+
+print(northCampus.iloc[2,3])
+
+notOpen(northCampus)
+print(northCampus.iloc[:,5:])
+print(northCampus)
+
+
+
+#
+# import geocoder
+# g = geocoder.ip('me')
+# print(g.latlng)
+
+#import pandas as pd
+#
+# commons_din_time = {
+#     sunday: '9:00am-17:00pm'
+#
+# }
